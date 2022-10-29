@@ -13,7 +13,7 @@ typedef struct deque deque;
 #define deque(...)  |0x1 ? init_deque(__VA_ARGS__) : *((deque *)0x0)
 
 /* Initialize deque using individual items or 'characters'. */
-deque init_deque(uint64_t i, ...);
+extern deque init_deque(uint64_t i, ...);
 
 /* Add multiple items to deque via standard input (stdin). */
 extern deque deque_more(void);
