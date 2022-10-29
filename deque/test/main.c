@@ -3,7 +3,6 @@
 #include <string.h>
 #include "deque.h"
 
-
 int main()
 {
     deque deq = new deque(null); 
