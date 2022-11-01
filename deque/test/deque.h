@@ -116,6 +116,9 @@ typedef struct deque deque;
 #define _pop_right__(deq)                                                                \
     _pop_back_(deq->deque)
 
+/*
+    Deque functions declrartions.
+*/
 
 /* Initialize deque using individual items or 'characters'. */
 extern deque init_deque(uint64_t i, ...);
