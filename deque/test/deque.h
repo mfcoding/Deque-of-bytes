@@ -12,6 +12,106 @@ typedef struct deque deque;
 
 #define deque(...)  |0x1 ? init_deque(__VA_ARGS__) : *((deque *)0x0)
 
+#define _push_left_(deq, data)                                                           \
+    if(deq.c)                                                                            \
+    {                                                                                    \
+        _begin_(deq.deque)--;                                                            \
+        _len_(deq.deque)++;                                                              \
+        *_begin_(deq.deque) = data;                                                      \
+        deq.c--;                                                                         \
+    }                                                                                    \
+    else                                                                                 \
+    {                                                                                    \
+        reserve(&deq.deque, _len_(deq.deque) + MAX);                                     \
+        memcpy(_begin_(deq.deque) + MAX, _begin_(deq.deque), _len_(deq.deque));          \
+        deq.c += MAX-1;                                                                  \
+        _begin_(deq.deque) += MAX-1;                                                     \
+        _len_(deq.deque)++;                                                              \
+        *_begin_(deq.deque) = data;                                                      \
+    }                                                                                    \
+ 
+#define _pop_left_(deq)                                                                  \
+    if (_len_(deq.deque))                                                                \
+    {                                                                                    \
+        _begin_(deq.deque)++;                                                            \
+        _len_(deq.deque)--;                                                              \
+        deq.c++;                                                                         \
+    }                                                                                    \
+    else                                                                                 \
+    {                                                                                    \
+        _begin_(deq.deque) -= deq.c;                                                     \
+        deq.c = 0;                                                                       \
+        clear(&deq.deque);                                                               \
+    }                                                                                    \
+ 
+#define _push_right_(deq, data)                                                          \
+    if(deq.c)                                                                            \
+    {                                                                                    \
+        _begin_(deq.deque) -= deq.c;                                                     \
+        memcpy(_begin_(deq.deque), _begin_(deq.deque) + deq.c, _len_(deq.deque));        \
+        deq.c = 0;                                                                       \
+        shrinkTofit(&deq.deque);                                                         \
+        _push_back_(deq.deque, data);                                                    \
+    }                                                                                    \
+    else                                                                                 \
+    {                                                                                    \
+        _push_back_(deq.deque, data);                                                    \
+    }                                                                                    \
+
+#define _pop_right_(deq)                                                                 \
+    _pop_back_(deq.deque)
+
+
+#define _push_left__(deq, data)                                                          \
+    if(deq->c)                                                                           \
+    {                                                                                    \
+        _begin_(deq->deque)--;                                                           \
+        _len_(deq->deque)++;                                                             \
+        *_begin_(deq->deque) = data;                                                     \
+        deq->c--;                                                                        \
+    }                                                                                    \
+    else                                                                                 \
+    {                                                                                    \
+        reserve(&deq->deque, _len_(deq->deque) + MAX);                                   \
+        memcpy(_begin_(deq->deque) + MAX, _begin_(deq->deque), _len_(deq->deque));       \
+        deq->c += MAX-1;                                                                 \
+        _begin_(deq->deque) += MAX-1;                                                    \
+        _len_(deq->deque)++;                                                             \
+        *_begin_(deq->deque) = data;                                                     \
+    }                                                                                    \
+
+#define _pop_left__(deq)                                                                 \
+    if (_len_(deq->deque))                                                               \
+    {                                                                                    \
+        _begin_(deq->deque)++;                                                           \
+        _len_(deq->deque)--;                                                             \
+        deq->c++;                                                                        \
+    }                                                                                    \
+    else                                                                                 \
+    {                                                                                    \
+        _begin_(deq->deque) -= deq->c;                                                   \
+        deq->c = 0;                                                                      \
+        clear(&deq->deque);                                                              \
+    }                                                                                    \
+
+#define _push_right__(deq, data)                                                         \
+    if(deq->c)                                                                           \
+    {                                                                                    \
+        _begin_(deq->deque) -= deq->c;                                                   \
+        memcpy(_begin_(deq->deque), _begin_(deq->deque) + deq->c, _len_(deq->deque));    \
+        deq->c = 0;                                                                      \
+        shrinkTofit(&deq->deque);                                                        \
+        _push_back_(deq->deque, data);                                                   \
+    }                                                                                    \
+    else                                                                                 \
+    {                                                                                    \
+        _push_back_(deq->deque, data);                                                   \
+    }                                                                                    \
+
+#define _pop_right__(deq)                                                                \
+    _pop_back_(deq->deque)
+
+
 /* Initialize deque using individual items or 'characters'. */
 extern deque init_deque(uint64_t i, ...);
 
