@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdarg.h>
 #include "deque.h"
-#define MAX 0x7d00
 
 deque init_deque(uint64_t i, ...)
 {
