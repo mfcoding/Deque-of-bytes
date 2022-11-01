@@ -14,7 +14,7 @@ typedef struct deque deque;
 #define deque(...)  |0x1 ? init_deque(__VA_ARGS__) : *((deque *)0x0)
 
 /* 
-    Lightweight versions of of some of the declared functions (basic operations). 
+    Lightweight versions of some of the declared functions (basic operations). 
 */
 
 #define _push_left_(deq, data)                                                           \
