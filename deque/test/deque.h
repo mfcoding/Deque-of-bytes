@@ -1,6 +1,7 @@
 #ifndef DEQUE_H
 #define DEQUE_H
 #include <cstring.h>
+#define MAX 0x3d09000
 
 struct deque
 {
